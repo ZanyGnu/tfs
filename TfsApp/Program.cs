@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.Framework.Client;
 using Microsoft.TeamFoundation.Framework.Common;
+using Microsoft.TeamFoundation.WorkItemTracking.Client;
 
 namespace TfsApp
 {
@@ -45,6 +46,15 @@ namespace TfsApp
                 {
                     Console.WriteLine("Team Project: " + tpNode.Resource.DisplayName);
                 }
+
+                WorkItemStore workItemStore = tpc.GetService<WorkItemStore>();
+
+                WorkItemCollection workItemCollection = workItemStore.Query(
+                 " SELECT [System.Id], [System.WorkItemType]," +
+                 " [System.State], [System.AssignedTo], [System.Title] " +
+                 " FROM WorkItems " +
+                 //" WHERE [System.TeamProject] = '" + teamProject.Name +
+                "' ORDER BY [System.WorkItemType], [System.Id]");
             }
         }
     }
