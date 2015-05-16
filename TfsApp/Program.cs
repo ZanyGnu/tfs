@@ -43,7 +43,7 @@ namespace TfsApp
                 // List the team projects in the collection
                 foreach (CatalogNode tpNode in tpNodes)
                 {
-                    Console.WriteLine(" Team Project: " + tpNode.Resource.DisplayName);
+                    Console.WriteLine("Team Project: " + tpNode.Resource.DisplayName);
                 }
             }
         }
