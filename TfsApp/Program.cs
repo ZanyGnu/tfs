@@ -49,12 +49,12 @@ namespace TfsApp
 
                 WorkItemStore workItemStore = tpc.GetService<WorkItemStore>();
 
-                WorkItemCollection workItemCollection = workItemStore.Query(
-                 " SELECT [System.Id], [System.WorkItemType]," +
-                 " [System.State], [System.AssignedTo], [System.Title] " +
-                 " FROM WorkItems " +
-                 //" WHERE [System.TeamProject] = '" + teamProject.Name +
-                "' ORDER BY [System.WorkItemType], [System.Id]");
+                //WorkItemCollection workItemCollection = workItemStore.Query(
+                // " SELECT [System.Id], [System.WorkItemType]," +
+                // " [System.State], [System.AssignedTo], [System.Title] " +
+                // " FROM WorkItems " +
+                // //" WHERE [System.TeamProject] = '" + teamProject.Name +
+                //"' ORDER BY [System.WorkItemType], [System.Id]");
             }
         }
     }
