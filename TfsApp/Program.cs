@@ -32,8 +32,14 @@ namespace TfsApp
                  " [System.State], [System.AssignedTo], [System.Title] " +
                  " FROM WorkItems " +
                 " WHERE [System.TeamProject] = 'RD'" +
-                " AND [System.CreatedDate] = @Today" +
+                " AND [System.CreatedDate] > @Today-14" +
+                " AND [System.CreatedBy] = 'Ajay Martin Mani' " + 
                 " ORDER BY [System.WorkItemType], [System.Id]");
+
+            foreach(WorkItem wi in workItemCollection)
+            {
+                Console.WriteLine("{0}, {1}, {2}, {3}", wi.Id, wi.AreaPath, wi.IterationPath, wi.Title);
+            }
 
         }
 
