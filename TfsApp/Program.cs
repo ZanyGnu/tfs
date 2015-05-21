@@ -27,12 +27,13 @@ namespace TfsApp
             var projectCollection = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(collectionUri);
             workItemStore = projectCollection.GetService<WorkItemStore>();
 
+            Console.WriteLine("Items created by me today:");
             WorkItemCollection workItemCollection = workItemStore.Query(
                  " SELECT [System.Id], [System.WorkItemType]," +
                  " [System.State], [System.AssignedTo], [System.Title] " +
                  " FROM WorkItems " +
                 " WHERE [System.TeamProject] = 'RD'" +
-                " AND [System.CreatedDate] > @Today-14" +
+                " AND [System.CreatedDate] > @Today" +
                 " AND [System.CreatedBy] = 'Ajay Martin Mani' " + 
                 " ORDER BY [System.WorkItemType], [System.Id]");
 
@@ -40,6 +41,11 @@ namespace TfsApp
             {
                 Console.WriteLine("{0}, {1}, {2}, {3}", wi.Id, wi.AreaPath, wi.IterationPath, wi.Title);
             }
+
+            var project = workItemStore.Projects["RD"];
+            QueryHierarchy queryHierarchy = project.QueryHierarchy;
+            var queryFolder = queryHierarchy as QueryFolder;
+            QueryItem queryItem = queryFolder["Shared Queries"];
 
         }
 
