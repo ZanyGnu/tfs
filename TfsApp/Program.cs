@@ -16,7 +16,7 @@ namespace TfsApp
             TfsConfigurationServer configurationServer =
                 TfsConfigurationServerFactory.GetConfigurationServer(new Uri("http://vstfrd:8080/"));
 
-            foreach(var collection in GetCollections(configurationServer))
+            foreach (var collection in GetCollections(configurationServer))
             {
                 Console.WriteLine("{0} {1}", collection.Key, collection.Value);
             }
@@ -34,10 +34,10 @@ namespace TfsApp
                  " FROM WorkItems " +
                 " WHERE [System.TeamProject] = 'RD'" +
                 " AND [System.CreatedDate] > @Today" +
-                " AND [System.CreatedBy] = 'Ajay Martin Mani' " + 
+                " AND [System.CreatedBy] = 'Ajay Martin Mani' " +
                 " ORDER BY [System.WorkItemType], [System.Id]");
 
-            foreach(WorkItem wi in workItemCollection)
+            foreach (WorkItem wi in workItemCollection)
             {
                 Console.WriteLine("{0}, {1}, {2}, {3}", wi.Id, wi.AreaPath, wi.IterationPath, wi.Title);
             }
@@ -45,8 +45,14 @@ namespace TfsApp
             var project = workItemStore.Projects["RD"];
             QueryHierarchy queryHierarchy = project.QueryHierarchy;
             var queryFolder = queryHierarchy as QueryFolder;
-            QueryItem queryItem = queryFolder["Shared Queries"];
+            var queryItem = ((queryFolder["Shared Queries"] as QueryFolder)["Aztec"] as QueryFolder)["Compute - Aztec - 5.2 - Backlog"] as QueryItem;
 
+            // following line doesnt work
+            // workItemCollection = workItemStore.Query(((QueryDefinition)queryItem).QueryText);
+            foreach (WorkItem wi in workItemCollection)
+            {
+                Console.WriteLine("{0}, {1}, {2}, {3}", wi.Id, wi.AreaPath, wi.IterationPath, wi.Title);
+            }
         }
 
         public static IList<KeyValuePair<Guid, String>> GetCollections(TfsConfigurationServer configurationServer)
